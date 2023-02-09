@@ -6,14 +6,13 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 12:55:34 by aizsak            #+#    #+#             */
-/*   Updated: 2023/02/08 16:10:54 by aizsak           ###   ########.fr       */
+/*   Updated: 2023/02/09 09:45:38 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-
-# include "libft.h"
+# include "../libft/libft.h"
 
 typedef	struct s_pile
 {

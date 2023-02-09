@@ -6,57 +6,61 @@
 #    By: aizsak <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 12:41:39 by aizsak            #+#    #+#              #
-#    Updated: 2023/02/08 13:29:54 by aizsak           ###   ########.fr        #
+#    Updated: 2023/02/09 09:43:09 by aizsak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DIRSRC		= ./srcs/
+NAME = push_swap
 
-DIRINC		= ./includes/
+SRC_DIR = src
 
-DIRLIB		= ./libft/
+BIN_DIR = bin
 
-DIROBJ		= ./objs/
+SRC =	$(SRC_DIR)/cmd1.c \
+	$(SRC_DIR)/cmd2.c \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/parsing.c \
+	$(SRC_DIR)/sorting.c \
+	$(SRC_DIR)/sorting_for_n.c \
+	$(SRC_DIR)/utils1.c \
+	$(SRC_DIR)/utils.c \
 
-SRC			= cmd1 cmd2 utils utils1 main parsing sorting sorting_for_n 
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(BIN_DIR)%.o)
 
-SRCS		= $(addprefix ${DIRSRC}, $(addsuffix .c, ${SRC}))
+LIB_PATH = ./libft
 
-HEAD		= ./includes/
+LIB = -Llibft -lft
 
-OBJS		= ${SRCS:.c=.o}
+INCLUDES = ./includes
 
-NAME		= push_swap.a
+CFLAGS = -Wall -Werror -Wextra -I$(INCLUDES)
 
-NAMELFT		= libft.a
+all :	$(BIN_DIR) $(NAME)
 
-CC			= gcc
-RM			= rm -f
-AR			= ar rc
-RN			= ranlib
+$(OBJ) :	 $(BIN_DIR)%.o: $(SRC_DIR)/%.c
+		@ $(CC) -I$(INCLUDES) -c $< -o $@
 
-CFLAGS		= -Wall -Wextra -Werror
+$(NAME) :	$(BIN_DIR) $(OBJ)
+			@ $(MAKE) -s -C $(LIB_PATH)
+			@ $(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
+			@ echo "\e[33m\e[1m\tMake\e[0m [🗿] : \e[1mDone ! ✅"
 
-.c.o:
-			${CC} ${CFLAGS} -c -I${DIRINC} -I${DIRLIB} $< -o ${<:.c=.o}
+$(BIN_DIR) :
+		@ mkdir -p $(BIN_DIR)
 
-$(NAME):	${OBJS}
-			cd ${DIRLIB} && ${MAKE} && cp -v ${NAMELFT} ../${NAME}
-			${AR} ${NAME} ${OBJS}
-			${RN} ${NAME}
+clean :
+		@ $(MAKE) -s clean -C $(LIB_PATH)
+		@ rm -f $(OBJ)
+		@ rm -rf $(BIN_DIR)
+		@echo "\e[33m\e[1m\tMake\e[0m [🗿] : \e[1mRemove binary files .. 🧹"
 
-main:		${NAME}
-			${CC} -I ${DIRINC} -I ${DIRLIB} ${NAME} main.c
-all:		$(NAME)
+fclean : clean
+		@ $(MAKE) -s fclean -C $(LIB_PATH)
+		@ rm -f $(NAME)
+		@echo "\e[33m\e[1m\tMake\e[0m [🗿] : \e[1mRemove executable .. 🗑️"
 
-clean:
-			${RM} ${OBJS}
-			cd ${DIRLIB} && ${MAKE} clean
+re :
+	@echo "\e[33m\e[1m\tMake\e[0m [🗿] : \e[1mRecompile .. 🔄"
+	@ $(MAKE) -s fclean all
 
-fclean:		clean
-			${RM} $(NAME)
-			cd ${DIRLIB} && ${MAKE} fclean
-
-re:		fclean all
-
-.PHONY:		all clean fclean re
+.PHONY: all clean fc
