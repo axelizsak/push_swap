@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:42:52 by aizsak            #+#    #+#             */
-/*   Updated: 2023/02/09 14:03:56 by aizsak           ###   ########.fr       */
+/*   Updated: 2023/02/09 18:19:05 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ t_pile	*get_pre_last(t_pile *pile)
 	pre_last = NULL;
 	if (pile && pile->next)
 	{
-		pre_last = pre_last->next;
+		pre_last = pile;
+		while (pre_last->next->next)
+			pre_last = pre_last->next;
 	}
 	return (pre_last);
 }
@@ -88,7 +90,6 @@ void	rrb(t_pile **pile_b)
 		pre_last->next = NULL;
 		last->next = tmp;
 		*pile_b = last;
-		ft_printf("ici?\n");
 		write(1, "rrb\n", 4);
 	}
 }

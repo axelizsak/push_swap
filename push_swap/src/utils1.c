@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:41:11 by aizsak            #+#    #+#             */
-/*   Updated: 2023/02/09 14:16:48 by aizsak           ###   ########.fr       */
+/*   Updated: 2023/02/09 18:22:41 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ void	sorting_b(t_pile **pile_a, t_pile **pile_b, int argc)
 		else if (location <= half && (*pile_b)->pos != size)
 			rb(pile_b);
 		else if (location > half && (*pile_b)->pos != size)
-		{
-			ft_printf("ici\n");
 			rrb(pile_b);
-		}
 	}
 }
 
@@ -83,20 +80,20 @@ int	too_long(char *arg)
 	return (1);
 }
 
-int     one_arg(char *arg)
+int	one_arg(char *arg)
 {
 	int	i;
 
 	i = 0;
-        while (arg[i] == 32)
+	while (arg[i] == 32)
 		i++;
-        if (arg[i] == '+' || arg[i] == '-')
-                i++;
-        while (ft_isdigit(arg[i]))
-                i++;
-        while (arg[i] == 32)
-                i++;
-        if (arg[i] != '\0')
+	if (arg[i] == '+' || arg[i] == '-')
+		i++;
+	while (ft_isdigit(arg[i]))
+		i++;
+	while (arg[i] == 32)
+		i++;
+	if (arg[i] != '\0')
 		return (0);
-        return (1);
+	return (1);
 }
